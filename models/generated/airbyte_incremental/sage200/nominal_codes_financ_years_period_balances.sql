@@ -1,11 +1,13 @@
 {{ config(
-    indexes = [{'columns':['_airbyte_emitted_at'],'type':'btree'}],
+    indexes = [{'columns':['_airbyte_unique_key'],'unique':True}],
+    unique_key = "_airbyte_unique_key",
     schema = "sage200_etl_fhl",
-    tags = [ "nested" ]
+    tags = [ "top-level" ]
 ) }}
 -- Final base SQL model
 -- depends_on: {{ ref('nominal_codes_financ_years_period_balances_scd') }}
 select
+    _airbyte_unique_key,
     nominal_code_id,
     period_balance,
     adjustment_after_year_end_close,
